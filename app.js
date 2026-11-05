@@ -1,6 +1,6 @@
-const state = { selectedDay: 0, completed: JSON.parse(localStorage.getItem('kansai-slow-travel-completed') || '{}') };
+const state = { selectedDay: 0, completed: JSON.parse(localStorage.getItem('thailand-slow-travel-completed') || '{}') };
 const $ = (id) => document.getElementById(id);
-const money = (value) => `¥${value.toLocaleString('ja-JP')}`;
+const money = (value) => `฿${value.toLocaleString('en-US')}`;
 const flightMoney = (currency, value) => `${currency} ${value.toLocaleString('en-US')}`;
 const flightAnchor = (flight) => `flight-${String(flight.reference || flight.flightNumber).toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 const googleMapsUrl = (query) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
@@ -13,11 +13,7 @@ const mapsUrlFor = (stop) => {
 };
 const iconFor = { arrival: '✈', stay: '⌂', food: '⌁', train: '↝', nature: '✦', culture: '◌', cafe: '☕', fun: '★', shopping: '✳' };
 const routeMeta = {
-  main: { className: 'main', eyebrow: 'MAIN ROUTE', title: '主要行程' },
-  emma: { className: 'emma', eyebrow: 'EMMA ROUTE', title: 'Emma 行程' },
-  overprint: { className: 'emma', eyebrow: 'EMMA ROUTE', title: 'Emma 行程' },
-  yokai: { className: 'other', eyebrow: 'YOKAI ROUTE', title: '百鬼夜行路線' },
-  shared: { className: 'shared', eyebrow: 'TOGETHER / 共同行程', title: '一起行動' }
+  main: { className: 'main', eyebrow: 'MAIN ROUTE', title: '主要行程' }
 };
 const timeToMinutes = (time) => { const [hours, minutes] = time.split(':').map(Number); return hours * 60 + minutes; };
 
@@ -81,31 +77,25 @@ function renderDay() {
   const day = TRIP_DATA.days[state.selectedDay];
   $('selected-day-title').innerHTML = `${day.label} <span>DAY ${state.selectedDay + 1}</span>`;
   $('selected-day-summary').textContent = day.summary;
-  const sharedStops = day.stops.filter((stop) => stop.shared).map((stop, originalIndex) => ({ stop, originalIndex }));
   const routes = day.stops.reduce((groups, stop, originalIndex) => {
-    if (stop.shared) return groups;
-    const route = stop.route || 'main';
+    const route = 'main';
     let group = groups.find((item) => item.route === route);
     if (!group) { group = { route, firstIndex: originalIndex, stops: [] }; groups.push(group); }
     group.stops.push({ stop, originalIndex });
     return groups;
   }, []).sort((a, b) => (a.route === 'main' ? -1 : b.route === 'main' ? 1 : a.firstIndex - b.firstIndex));
   routes.forEach((group) => group.stops.sort((a, b) => timeToMinutes(a.stop.time) - timeToMinutes(b.stop.time)));
-  const hasParallelRoutes = routes.length > 1;
-  const sharedLane = sharedStops.length ? renderRouteLane(day, { route: 'shared', stops: sharedStops }) : '';
   const routeNotes = (day.routeNotes || []).map(renderRouteNote).join('');
-  const parallelNote = hasParallelRoutes ? `<div class="parallel-note"><strong>${sharedStops.length ? '先一起行動' : '平行行程'}</strong><span>${sharedStops.length ? '先完成共同退房，往下再分成 Main Route／Emma Route；每個欄位都是獨立行程。' : '同一天可以同時安排不同人的路線；每個欄位都是獨立行程。'}</span></div>` : '';
-  const routeBoard = day.id === 'day-5'
-    ? renderDay5Board(day, routes)
-    : `<div class="timeline-board${hasParallelRoutes ? ' has-parallel-routes' : ''}">${routes.map((group) => renderRouteLane(day, group)).join('')}</div>`;
+  const routeBoard = `<div class="timeline-board">${routes.map((group) => renderRouteLane(day, group)).join('')}</div>`;
   const flights = (day.flights || []).map(renderFlightDetails).join('');
-  $('timeline').innerHTML = `${flights}${parallelNote}${sharedLane}${routeBoard}${routeNotes ? `<div class="route-notes">${routeNotes}</div>` : ''}`;
-  document.querySelectorAll('.check-wrap input').forEach((input) => input.addEventListener('change', (event) => { state.completed[event.target.dataset.key] = event.target.checked; localStorage.setItem('kansai-slow-travel-completed', JSON.stringify(state.completed)); event.target.closest('.stop').classList.toggle('completed', event.target.checked); updateProgress(); }));
+  $('timeline').innerHTML = `${flights}${routeBoard}${routeNotes ? `<div class="route-notes">${routeNotes}</div>` : ''}`;
+  document.querySelectorAll('.check-wrap input').forEach((input) => input.addEventListener('change', (event) => { state.completed[event.target.dataset.key] = event.target.checked; localStorage.setItem('thailand-slow-travel-completed', JSON.stringify(state.completed)); event.target.closest('.stop').classList.toggle('completed', event.target.checked); updateProgress(); }));
 }
 
 function renderFlightDetails(flight) {
   const passengerRows = flight.passengers.map((passenger) => `<tr><th scope="row">${passenger.name}</th><td>${passenger.detail}</td><td>${passenger.amount === null ? '—' : flightMoney(flight.currency, passenger.amount)}</td></tr>`).join('');
   const breakdownRows = (flight.breakdown || []).map((item) => `<div><span>${item.label}</span><strong>${item.detail || ''}</strong><b>${flightMoney(flight.currency, item.amount)}</b></div>`).join('');
+  const totalDisplay = flight.totalDisplay || (flight.total ? flightMoney(flight.currency, flight.total) : '待補');
   const summaryItems = [['日期', flight.date], ['航班時間', flight.schedule || `${flight.departure.time}–${flight.arrival.time}`], ['旅客人數', `${flight.passengers.length} 位成人`]];
   if (flight.reference) summaryItems.push(['訂位／訂單', flight.reference]);
   if (flight.bookingDate) summaryItems.push(['訂位日期', flight.bookingDate]);
@@ -132,28 +122,9 @@ function renderFlightDetails(flight) {
         <tbody>${passengerRows}</tbody>
       </table>
     </div>
-    <div class="flight-totals">${breakdownRows}<div class="flight-total"><span>${flight.totalLabel || '訂單總額'}</span><strong>${flightMoney(flight.currency, flight.total)}</strong></div></div>
+    <div class="flight-totals">${breakdownRows}<div class="flight-total"><span>${flight.totalLabel || '訂單總額'}</span><strong>${totalDisplay}</strong></div></div>
     <p class="flight-note">${flight.note}</p>
   </section>`;
-}
-
-function renderDay5Board(day, routes) {
-  const main = routes.find((group) => group.route === 'main');
-  const emma = routes.find((group) => group.route === 'emma');
-  if (!main || !emma) return `<div class="timeline-board">${routes.map((group) => renderRouteLane(day, group)).join('')}</div>`;
-  const lunchIndex = main.stops.findIndex(({ stop }) => stop.title === '午餐（難波）');
-  if (lunchIndex < 0) return `<div class="timeline-board">${routes.map((group) => renderRouteLane(day, group)).join('')}</div>`;
-  const beforeLunch = main.stops.slice(0, lunchIndex);
-  const lunch = main.stops[lunchIndex];
-  const afterLunch = main.stops.slice(lunchIndex + 1);
-  return `<div class="day5-board">
-    ${renderRouteLane(day, { route: 'main', stops: beforeLunch }, { countOverride: main.stops.length })}
-    <div class="day5-parallel-pair">
-      <section class="day5-lunch-column" aria-label="午餐（難波）"><div class="route-timeline">${renderStop(day, lunch.stop, lunch.originalIndex, 'main')}</div></section>
-      ${renderRouteLane(day, { route: 'emma', stops: emma.stops })}
-    </div>
-    ${renderRouteLane(day, { route: 'main', stops: afterLunch }, { hideHeader: true, extraClass: 'route-lane-continuation' })}
-  </div>`;
 }
 
 function renderRouteLane(day, group, options = {}) {
@@ -185,39 +156,19 @@ function renderStop(day, stop, originalIndex, route) {
     const paidCost = stop.paidCost ? `<span class="stop-paid">${stop.paidLabel || '已付款'} <b>${stop.paidCurrency === 'TWD' ? 'NT$' : stop.paidCurrency}${stop.paidCost.toLocaleString('zh-TW')}</b></span>` : '';
     const extraContent = `${flightInfo}${links ? `<div class="stop-links">${links}</div>` : ''}<p class="stop-note">${stop.note}</p>`;
     const more = extraContent.trim() ? `<details class="stop-more"><summary>查看備註與連結 <span>⌄</span></summary><div class="stop-more-body">${extraContent}</div></details>` : '';
-    return `<article class="stop ${checked ? 'completed' : ''}"><div class="stop-time"><strong>${stop.time}</strong><span>${stop.leave ? `至 ${stop.leave}` : '彈性'}</span></div><div class="timeline-line"><span class="stop-icon">${iconFor[stop.type] || '•'}</span></div><div class="stop-card"><div class="stop-top"><div><span class="stop-kind">${stop.type.toUpperCase()}</span><h3>${stop.title}</h3></div><label class="check-wrap" title="標記完成"><input type="checkbox" ${checked ? 'checked' : ''} data-key="${key}" /><span></span></label></div>${mapLink}<div class="stop-meta"><span>↝ ${stop.transport}</span><span>◷ ${stop.duration}</span></div><div class="stop-cost">預估 <b>${money(stop.cost)}</b>${paidCost}</div>${more}</div></article>`;
+    const costDisplay = stop.costLabel || (stop.cost === null ? '待確認' : money(stop.cost));
+    return `<article class="stop ${checked ? 'completed' : ''}"><div class="stop-time"><strong>${stop.time}</strong><span>${stop.leave ? `至 ${stop.leave}` : '彈性'}</span></div><div class="timeline-line"><span class="stop-icon">${iconFor[stop.type] || '•'}</span></div><div class="stop-card"><div class="stop-top"><div><span class="stop-kind">${stop.type.toUpperCase()}</span><h3>${stop.title}</h3></div><label class="check-wrap" title="標記完成"><input type="checkbox" ${checked ? 'checked' : ''} data-key="${key}" /><span></span></label></div>${mapLink}<div class="stop-meta"><span>↝ ${stop.transport}</span><span>◷ ${stop.duration}</span></div><div class="stop-cost">預估 <b>${costDisplay}</b>${paidCost}</div>${more}</div></article>`;
 }
 
 function renderBudget() {
   $('budget-grid').innerHTML = TRIP_DATA.budget.map((item) => `<div class="budget-card ${item.tone}"><div class="budget-icon">${item.icon}</div><div><span>${item.label}</span><strong>${money(item.amount)}</strong></div></div>`).join('');
-  const expenses = TRIP_DATA.personalExpenses;
-  const sharedTotal = expenses.sharedTickets.reduce((sum, ticket) => sum + ticket.perPerson, 0);
-  const esim = expenses.esim;
-  const splitLodging = expenses.splitLodging;
-  const splitLodgingLabel = splitLodging.label.replace('（', '<br>（');
-  const currentPayerLabel = `${expenses.currentPayer}<br>先出小計`;
-  const usjTicket = expenses.usjTicket;
-  const sharedRows = expenses.sharedTickets.map((ticket) => `<div class="shared-ticket-row"><span>${ticket.label}</span><b>NT$ ${ticket.total.toLocaleString('zh-TW')}</b><em>均攤 NT$ ${ticket.perPerson.toLocaleString('zh-TW')}／人</em></div>`).join('');
-  const esimRow = `<div class="shared-ticket-row"><span>${esim.label}</span><b>NT$ ${esim.total.toLocaleString('zh-TW')}</b><em>均攤 NT$ ${esim.perPerson.toLocaleString('zh-TW')}／人</em></div>`;
-  const kimonoRows = `<div class="shared-ticket-row"><span>和服｜女性方案（3 位）</span><b>NT$ 2,932</b><em>均攤 NT$ 988／人</em></div><div class="shared-ticket-row"><span>和服｜男性／兒童方案（4 位）</span><b>NT$ 7,828</b><em>均攤 NT$ 1,957／人</em></div>`;
-  const travelerRows = expenses.travelers.map((traveler) => {
-    const personalSubtotal = (traveler.flight || 0) + (traveler.kimono || 0) + (traveler.other || 0);
-    const splitLodgingAmount = splitLodging.excluded.includes(traveler.name) ? 0 : splitLodging.perPerson;
-    const luluSubtotal = personalSubtotal + expenses.lodgingPerPerson;
-    const usjAmount = usjTicket.excluded.includes(traveler.name) ? 0 : usjTicket.perPerson;
-    const esimAmount = esim.participants.includes(traveler.name) ? esim.perPerson : 0;
-    const ningSubtotal = usjAmount + splitLodgingAmount + sharedTotal + esimAmount;
-    const total = luluSubtotal + ningSubtotal;
-    return `<tr><th scope="row">${traveler.name}</th><td>NT$ ${(traveler.flight || 0).toLocaleString('zh-TW')}</td><td>NT$ ${(traveler.kimono || 0).toLocaleString('zh-TW')}</td><td>NT$ ${expenses.lodgingPerPerson.toLocaleString('zh-TW')}</td><td>NT$ ${luluSubtotal.toLocaleString('zh-TW')}</td><td>${esimAmount ? `NT$ ${esimAmount.toLocaleString('zh-TW')}` : '—'}</td><td>${usjAmount ? `NT$ ${usjAmount.toLocaleString('zh-TW')}` : '—'}</td><td>${splitLodgingAmount ? `NT$ ${splitLodgingAmount.toLocaleString('zh-TW')}` : '—'}</td><td>NT$ ${sharedTotal.toLocaleString('zh-TW')}</td><td class="payer-subtotal">NT$ ${ningSubtotal.toLocaleString('zh-TW')}</td><td><strong>NT$ ${total.toLocaleString('zh-TW')}</strong></td></tr>`;
-  }).join('');
-  $('personal-expenses').innerHTML = `<section class="personal-expenses"><div class="section-label">PERSONAL SPLIT / 個人分攤</div><h3>每個人目前應分攤</h3><p class="expense-note">機票、和服與原住宿列在 ${expenses.currentPayer} 先出；${splitLodging.label}、船票、火車票、USJ 門票與 eSIM 分別列在先付款者名下。USJ 門票總額 NT$${usjTicket.total.toLocaleString('zh-TW')}，由 5 人均分 NT$${usjTicket.perPerson.toLocaleString('zh-TW')}（不含嬅、學）。${splitLodging.label}總額 NT$${splitLodging.total.toLocaleString('zh-TW')}，每人 NT$${splitLodging.perPerson.toLocaleString('zh-TW')}（不含 L、中）。${esim.label}總額 NT$${esim.total.toLocaleString('zh-TW')}，每人 NT$${esim.perPerson.toLocaleString('zh-TW')}。</p><div class="shared-ticket-split">${sharedRows}${kimonoRows}${esimRow}</div><div class="expense-table-wrap"><table class="expense-table"><thead><tr><th>旅客</th><th>機票</th><th>和服</th><th>住宿<br>10/12–10/18</th><th>${currentPayerLabel}</th><th>eSIM</th><th>USJ門票</th><th>${splitLodgingLabel}</th><th>船票＋火車票</th><th>${usjTicket.payer}先出小計</th><th>總花費</th></tr></thead><tbody>${travelerRows}</tbody></table></div></section>`;
 }
 
 function renderUtilitySections() {
   $('reminders-list').innerHTML = TRIP_DATA.reminders.map((item, index) => { const links = (item.links || []).map((link) => `<a class="reminder-link" href="${link.url}" target="_blank" rel="noopener">${link.label} ↗</a>`).join(''); return `<div class="utility-row"><span class="utility-index">${String(index + 1).padStart(2, '0')}</span><div><strong>${item.title}</strong><p>${item.text}</p>${links ? `<div class="reminder-links">${links}</div>` : ''}</div></div>`; }).join('');
-  const checks = JSON.parse(localStorage.getItem('kansai-slow-travel-checks') || '{}');
+  const checks = JSON.parse(localStorage.getItem('thailand-slow-travel-checks') || '{}');
   $('checklist').innerHTML = TRIP_DATA.checklist.map((item) => `<label class="checklist-row"><input type="checkbox" data-check="${item.id}" ${checks[item.id] ? 'checked' : ''}><span class="check-box"></span><span>${item.text}</span></label>`).join('');
-  document.querySelectorAll('[data-check]').forEach((input) => input.addEventListener('change', (event) => { checks[event.target.dataset.check] = event.target.checked; localStorage.setItem('kansai-slow-travel-checks', JSON.stringify(checks)); }));
+  document.querySelectorAll('[data-check]').forEach((input) => input.addEventListener('change', (event) => { checks[event.target.dataset.check] = event.target.checked; localStorage.setItem('thailand-slow-travel-checks', JSON.stringify(checks)); }));
   $('emergency-grid').innerHTML = TRIP_DATA.emergency.map((item) => `<a class="emergency-card" href="${item.action}" target="_blank" rel="noopener"><span>${item.label}</span><strong>${item.value}</strong><small>開啟 ↗</small></a>`).join('');
 }
 
@@ -230,7 +181,7 @@ function updateProgress() {
 }
 
 function jumpToToday() {
-  const start = new Date('2026-10-11T00:00:00');
+  const start = new Date('2027-02-20T00:00:00');
   const today = new Date();
   const index = Math.floor((today - start) / 86400000);
   state.selectedDay = Math.max(0, Math.min(TRIP_DATA.days.length - 1, index));

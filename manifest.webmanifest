@@ -1,10 +1,10 @@
 {
-  "name": "關西，慢慢走",
-  "short_name": "關西慢慢走",
+  "name": "暹羅留白",
+  "short_name": "暹羅留白",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#fbf9f4",
-  "theme_color": "#1e2927",
+  "theme_color": "#8b2f2f",
   "lang": "zh-Hant",
   "icons": []
 }

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@500;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@500;600;700;900&family=Noto+Serif+Thai:wght@500;600;700&display=swap');
 :root { --ink:#1e2927; --muted:#75817b; --cream:#f4efe6; --paper:#fbf9f4; --line:#ddd8cc; --red:#ce5b3d; --blue:#54758b; --orange:#c1824c; --green:#6e8065; }
 * { box-sizing:border-box; }
 body { margin:0; background:#dfe4da; color:var(--ink); font-family:'DM Mono', ui-monospace, monospace; font-size:13px; line-height:1.6; }
@@ -31,10 +31,33 @@ body { margin:0; background:#dfe4da; color:var(--ink); font-family:'DM Mono', ui
 .stop-cost { position:static; margin-top:10px; padding-top:8px; border-top:1px solid #ece8df; }
 .stop-time { min-width:0; }.stop-time strong { white-space:nowrap; font-size:14px; }
 @media (max-width:520px) { .stop { grid-template-columns:60px 25px minmax(0,1fr); } }
-.personal-expenses { margin-top:28px; border-top:1px solid var(--line); padding-top:20px; }.personal-expenses h3 { margin:6px 0 3px; font:600 22px 'Noto Serif TC',serif; }.expense-note { margin:0 0 13px; color:var(--muted); font-size:10px; }.shared-ticket-split { display:flex; flex-direction:column; gap:1px; margin:13px 0 15px; background:#d7e0df; border:1px solid #d7e0df; }.shared-ticket-row { display:grid; grid-template-columns:max-content auto 1fr; align-items:baseline; gap:18px; padding:9px 11px; background:#f3f5f0; font-size:10px; }.shared-ticket-row b,.shared-ticket-row em { color:var(--red); font-weight:600; font-style:normal; white-space:nowrap; }.shared-ticket-row em { justify-self:end; }.expense-table-wrap { overflow-x:auto; border:1px solid #d7e0df; }.expense-table { width:100%; min-width:620px; table-layout:fixed; border-collapse:collapse; background:#fbfcfa; font-size:10px; }.expense-table th,.expense-table td { padding:10px 11px; border-top:1px solid #e1e7e2; text-align:right; white-space:nowrap; }.expense-table thead th { color:var(--muted); font-size:9px; font-weight:500; background:#f3f5f0; }.expense-table th:first-child,.expense-table td:first-child { width:46px; text-align:left; }.expense-table tbody th { font-weight:600; }.expense-table td small { display:none; }.expense-table strong { color:var(--red); }
 .stop-time { padding-right:22px; transform:translateX(-8px); }
 .stop-time span { font-size:14px; line-height:1.4; color:var(--ink); font-weight:700; }
 .tab-panel[hidden] { display:none !important; }
+
+/* Thai slow-travel palette: temple vermilion, frangipani cream, teak and deep indigo. */
+:root { --ink:#2b2424; --paper:#fffaf0; --cream:#f4e7d0; --line:#dfcdb6; --red:#a83d32; --blue:#31566a; --orange:#c27a3d; --green:#6d7b4f; --moss:#6d7b4f; --indigo:#31566a; }
+body { background:#d9c3a3; }
+.paper-texture { opacity:.22; background-image:radial-gradient(#9d6b4c .55px,transparent .55px); background-size:8px 8px; }
+.app-shell { background:var(--paper); box-shadow:0 0 80px #6f3e2b33; }
+.eyebrow-dot,.progress-track div,.stamp,.today-button,.day-tab.active:after { background-color:var(--red); }
+.kicker,.stop-kind,.day-tab.active,.progress-item strong { color:var(--red); }
+.hero-card { background:#342525; }
+.hero-card:after { content:'ไทย'; color:#ffffff09; }
+.hero-card h2 em,.route-map-copy h2 em,.story-index h2 em,.guide-desk h2 em { color:#e29a62; }
+.cover-image { background:linear-gradient(145deg,#d98b55 0%,#a83d32 42%,#5e2930 43%,#273847 100%); }
+.cover-image:before { background:#e3b56e; opacity:.86; }
+.cover-kanji { font-family:'Noto Serif Thai','Noto Serif TC',serif; letter-spacing:-.08em; }
+.cover-seal { border-color:#ffe8bd99; color:#ffe8bd; }
+.route-card-vermillion { background:#a83d32; }.route-card-moss { background:#6d7b4f; }.route-card-indigo { background:#31566a; }.route-card-sand { background:#c27a3d; }
+.route-map { background:#f0e1c8; }
+.route-map:after { content:'ไทย'; color:#ffffff55; }
+.route-stop:before { border-color:var(--red); }.route-stop-kyoto:before { border-color:var(--green); }
+.budget-card { background:#f0eadc; }.budget-card.blue { background:#e4edf0; }.budget-card.orange { background:#f5e5d3; }
+.guide-kyoto { background:#e8eadb; }.guide-kyoto:after { content:'เชียงใหม่'; color:var(--moss); }.guide-osaka { background:#f0dfd3; }.guide-osaka:after { content:'曼谷'; color:var(--red); }
+.flight-card-head,.flight-table caption { background:#f1e3cf; }
+.flight-card { border-color:#d7b795; background:#fff8ed; }.flight-status { border-color:#c68b61; color:#8b4c32; }.flight-airport strong { color:var(--red); }
+.stop-card:hover { border-color:#c68b61; }.stop-icon { color:var(--red); border-color:#d8b28f; }
 
 /* editorial travel journal layer */
 :root { --ink:#202b29; --paper:#fbf8f1; --cream:#eee7da; --line:#d8d0c1; --red:#c7533c; --moss:#68745d; --indigo:#405d72; }
@@ -89,6 +112,54 @@ button, a { -webkit-tap-highlight-color:transparent; }
 @media (max-width:720px) { .route-cards { grid-template-columns:repeat(2,1fr); }.route-card { min-height:190px; } }
 @media (max-width:520px) { .main-nav { top:0; padding-top:5px; padding-bottom:14px; }.day-tabs { top:48px; }.cover-story { grid-template-columns:1fr; }.cover-image { min-height:215px; }.cover-caption { min-height:220px; padding:22px 20px 20px; }.cover-caption strong { font-size:29px; }.story-index-heading { display:block; }.story-index h2 { margin-top:8px; }.route-cards { grid-template-columns:repeat(2, minmax(0,1fr)); gap:7px; }.route-card { min-height:175px; padding:12px 11px; }.route-card-copy strong { font-size:16px; }.route-card-copy em { font-size:9px; }.route-card-mark { font-size:19px; right:10px; top:10px; }.route-map { grid-template-columns:1fr; gap:24px; padding:22px 17px 24px; }.route-map-copy p { max-width:290px; }.route-line { padding-top:4px; }.route-stop { min-width:0; }.route-stop strong { font-size:13px; }.route-stop small { font-size:6px; } }
 
+/* Thailand editorial redesign: a vivid travel-zine palette with temple geometry. */
+:root {
+  --ink:#172b35;
+  --paper:#fff9ed;
+  --line:#dbc5a2;
+  --red:#b83b2f;
+  --blue:#164b5a;
+  --orange:#d68435;
+  --green:#28745d;
+  --gold:#d6a84c;
+  --teal:#1b6870;
+}
+body { background:#173b45; color:var(--ink); }
+.paper-texture { opacity:.18; background-image:linear-gradient(135deg,#d6a84c22 25%,transparent 25%),linear-gradient(315deg,#b83b2f15 25%,transparent 25%); background-size:18px 18px; }
+.app-shell { background:var(--paper); box-shadow:0 0 0 10px #d6a84c22,0 18px 70px #081d2566; }
+.main-nav { border-bottom:2px solid var(--gold); }
+.nav-link.active:after { background:var(--red); }
+.masthead { border-bottom:1px solid #d4b985; }
+.masthead h1 { color:var(--blue); text-shadow:3px 3px 0 #d6a84c55; }
+.kicker,.stop-kind,.day-tab.active,.progress-item strong { color:var(--red); }
+.eyebrow-dot { background:var(--gold); box-shadow:0 0 0 4px #d6a84c2b; }
+.stamp { border:2px solid var(--red); color:var(--red); box-shadow:inset 0 0 0 3px #d6a84c44; }
+.date-ribbon { font-weight:700; }.ribbon-line { background:var(--red); height:2px; }
+.cover-story { border:2px solid var(--gold); box-shadow:10px 10px 0 #164b5a; }
+.cover-image { background:radial-gradient(circle at 75% 24%,#f3c66d 0 6%,transparent 7%),linear-gradient(145deg,#d88939 0%,#b83b2f 42%,#642c3b 43%,#164b5a 100%); }
+.cover-image:after { border:2px solid #f7d98b99; }
+.cover-image:before { background:#28745d; opacity:.72; border-radius:0 70% 0 0; }
+.cover-kanji { color:#fff3cfdd; text-shadow:5px 7px 0 #164b5a66; }
+.cover-seal { border:2px solid #f7d98b; color:#fff3cf; }
+.cover-caption { background:#164b5a; }.cover-caption strong { color:#fff3cf; }.cover-caption a { color:#f3c66d; border-color:#f3c66d; }
+.hero-card { background:linear-gradient(135deg,#164b5a,#17343f 70%); border-left:7px solid var(--red); }
+.hero-card:after { content:'ไทย'; color:#ffffff0b; }
+.hero-card .section-label { color:#f3c66d; }.hero-card h2 em { color:#f3c66d; }.weather-icon { color:#f3c66d; }
+.quick-panel { border:2px solid #d4b985; background:#fffdf6; }.quick-item { border-color:#e1cfad; }.progress-track { background:#efe0c3; }.progress-track div { background:var(--red); }
+.story-index-heading,.guide-desk-head { border-bottom:2px solid #d4b985; }
+.route-card { border-radius:0; border-bottom:5px solid #173b45; }.route-card:before { border-color:#f6d48366; }.route-card-vermillion { background:#b83b2f; }.route-card-moss { background:#28745d; }.route-card-indigo { background:#164b5a; }.route-card-sand { background:#d68435; }
+.route-map { background:#f4e2bb; border:2px solid #d4b985; }.route-map:after { content:'ไทย'; color:#b83b2f1c; }.route-line:before { border-top:2px solid #b08e59; }.route-stop:before { background:#fff9ed; border:3px solid var(--red); }.route-stop strong { color:#164b5a; }
+.guide-card { border:1px solid #d4b985; }.guide-kyoto { background:#e3f0e3; }.guide-osaka { background:#f4ded0; }
+.day-tabs { border-bottom:2px solid #d4b985; }.day-tab.active:after { background:var(--red); height:3px; }
+.day-header h2 { color:#164b5a; }.today-button { border:2px solid var(--red); color:var(--red); font-weight:700; }
+.route-lane,.stop-card,.flight-card,.emergency-card,.checklist-row { border-color:#d4b985; }.route-lane-head { background:#f4e2bb; }.route-lane-shared .route-lane-head { background:#e4f0e4; }
+.stop-card { background:#fffdf7; box-shadow:4px 4px 0 #d6a84c22; }.stop-card:hover { border-color:var(--red); box-shadow:6px 6px 0 #b83b2f22; }.stop-icon { border:2px solid var(--red); color:var(--red); background:#fff9ed; }
+.place-link,.stop-links a,.reminder-link { border-color:#b6d1cb; }.place-link-label,.stop-links a,.reminder-link { color:var(--teal); }
+.budget-card { border:1px solid #d4b985; background:#f4e8cd; }.budget-card.blue { background:#dcecf0; }.budget-card.orange { background:#f7dfc7; }.budget-card.green { background:#e0efdf; }
+.flight-card { border:2px solid #d4b985; background:#fffdf7; }.flight-card-head { background:#164b5a; color:#fff9ed; }.flight-card-head h3,.flight-card-head p { color:#fff9ed; }.flight-status { border-color:#f3c66d; color:#f3c66d; }.flight-route { background:#fff9ed; }.flight-airport strong { color:var(--red); }
+.utility-section,.budget-section { border-top:2px solid #d4b985; }.utility-index { color:var(--red); }.emergency-card strong { color:var(--red); }
+footer { border-top:2px solid #d4b985; }
+
 /* official field guide */
 .guide-desk { margin:32px 0 12px; padding-top:22px; border-top:1px solid var(--line); }
 .guide-desk-head { display:flex; justify-content:space-between; align-items:end; border-bottom:1px solid var(--line); padding-bottom:13px; }
@@ -118,21 +189,11 @@ button, a { -webkit-tap-highlight-color:transparent; }
 .route-lane .stop-time { padding-right:10px; transform:translateX(-4px); }
 .route-lane .stop-card { margin-left:10px; padding:14px 13px 12px; }
 .route-lane .stop-card h3 { font-size:16px; }
-.route-lane-emma { border-color:#ddbea5; background:#fffaf3; }
-.route-lane-emma .route-lane-head { background:#f5e8dc; }
-.route-lane-emma .route-lane-head .section-label, .route-lane-emma .stop-kind { color:#a86445; }
-.route-lane-emma .stop-icon { color:#b26745; border-color:#d2a183; }
-.route-lane-emma .stop-card { border-color:#e2cdb9; }
 .route-lane-overprint { border-color:#bdcbd0; background:#fbfcfa; }
 .route-lane-overprint .route-lane-head { background:#e8edf0; }
 .route-lane-overprint .route-lane-head .section-label, .route-lane-overprint .stop-kind { color:var(--indigo); }
 .route-lane-overprint .stop-icon { color:var(--indigo); border-color:#aabcc2; }
 .route-lane-overprint .stop-card { border-color:#cbd6d8; }
-.day5-board { display:flex; flex-direction:column; gap:18px; }
-.day5-parallel-pair { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:18px; align-items:start; }
-.day5-lunch-column { min-width:0; border:1px solid var(--line); background:#fdfbf6; padding:16px 13px 4px 0; }
-.day5-lunch-column .route-timeline { padding:0; }
-.day5-lunch-column .stop-card { margin-left:10px; }
 .route-lane-continuation { border-top-color:#c7cfc4; }
 .route-lane-other .route-lane-head { background:#e8edf0; }
 .route-lane-other .route-lane-head .section-label { color:var(--indigo); }
@@ -189,7 +250,7 @@ button, a { -webkit-tap-highlight-color:transparent; }
 .flight-total strong { color:var(--red); font-size:18px; font-weight:700; }
 .flight-note { margin:0; padding:11px 19px 17px; color:var(--muted); font-size:10px; line-height:1.75; }
 @media (max-width:520px) { .parallel-note { display:block; }.parallel-note span { display:block; margin-top:3px; }.route-lane-head { padding-left:13px; padding-right:13px; } }
-@media (max-width:720px) { .timeline-board, .timeline-board.has-parallel-routes { grid-template-columns:1fr; }.day5-parallel-pair { grid-template-columns:1fr; }.route-notes-grid { grid-template-columns:1fr; } }
+@media (max-width:720px) { .timeline-board, .timeline-board.has-parallel-routes { grid-template-columns:1fr; }.route-notes-grid { grid-template-columns:1fr; } }
 @media (max-width:520px) { .route-notes-card > summary, .route-notes-body { padding-left:13px; padding-right:13px; }.route-notes-summary-copy strong { font-size:18px; }.route-notes-toggle { display:none; }.flight-card-head { display:block; padding:15px 13px 13px; }.flight-status { display:inline-block; margin-top:12px; }.flight-route { grid-template-columns:minmax(0,1fr) 35px minmax(0,1fr); gap:6px; padding:16px 13px; }.flight-airport strong { font-size:27px; }.flight-airport b { font-size:10px; }.flight-airport small { font-size:15px; }.flight-summary { grid-template-columns:1fr; margin:0 13px; }.flight-summary > div { padding:9px 10px; }.flight-table-wrap, .flight-totals { margin-left:13px; margin-right:13px; }.flight-note { padding-left:13px; padding-right:13px; }.flight-totals > div { grid-template-columns:1fr; gap:3px; }.flight-totals .flight-total { grid-template-columns:1fr auto; gap:8px; } }
 
 /* Mobile-first pocket guide: optimized for one-hand reading outdoors. */
@@ -256,7 +317,7 @@ button, a { -webkit-tap-highlight-color:transparent; }
   .day-header p { font-size:10px; line-height:1.65; }
   .today-button { width:100%; min-height:40px; border-radius:10px; font-size:11px; }
   .parallel-note { margin-bottom:12px; border-radius:0 10px 10px 0; }
-  .route-lane, .day5-lunch-column { border-radius:15px; overflow:hidden; }
+  .route-lane { border-radius:15px; overflow:hidden; }
   .route-lane-head { padding:13px 12px 11px; }
   .route-lane-head h3 { font-size:18px; }
   .route-timeline { padding:12px 8px 3px 0; }
@@ -298,29 +359,6 @@ button, a { -webkit-tap-highlight-color:transparent; }
   .budget-card { min-height:68px; border-radius:12px; padding:10px; }
   .budget-card:last-child { grid-column:1 / -1; }
   .budget-card strong { font-size:12px; }
-  .personal-expenses { padding:16px 11px; border-radius:16px; }
-  .personal-expenses h3 { font-size:20px; }
-  .expense-note { font-size:10px; line-height:1.75; }
-  .shared-ticket-row { padding:10px; }
-  .expense-table-wrap { overflow:visible; margin-inline:0; box-shadow:none; }
-  .expense-table { width:100% !important; min-width:0 !important; display:block; table-layout:auto; font-size:10px; }
-  .expense-table thead { display:none; }
-  .expense-table tbody, .expense-table tr { display:block; }
-  .expense-table tr { display:grid; grid-template-columns:1fr 1fr; gap:0 10px; padding:11px 10px; border-top:1px solid var(--line); }
-  .expense-table tbody th { grid-column:1 / -1; padding:0 0 7px; font:600 16px 'Noto Serif TC',serif; }
-  .expense-table td { display:flex; justify-content:space-between; gap:6px; padding:4px 0; border:0; font-size:10px; text-align:right; }
-  .expense-table td:before { color:var(--muted); font-size:9px; text-align:left; }
-  .expense-table td:nth-child(2):before { content:'機票'; }
-  .expense-table td:nth-child(3):before { content:'和服'; }
-  .expense-table td:nth-child(4):before { content:'住宿'; }
-  .expense-table td:nth-child(5):before { content:'Lulu先出'; }
-  .expense-table td:nth-child(6):before { content:'eSIM'; }
-  .expense-table td:nth-child(7):before { content:'USJ'; }
-  .expense-table td:nth-child(8):before { content:'10/11住宿'; }
-  .expense-table td:nth-child(9):before { content:'船票火車'; }
-  .expense-table td:nth-child(10):before { content:'甯先出'; }
-  .expense-table td:nth-child(11) { grid-column:1 / -1; margin-top:4px; padding-top:7px; border-top:1px solid #d7e0df; font-weight:700; font-size:12px; }
-  .expense-table td:nth-child(11):before { content:'總花費'; font-size:10px; }
   .utility-row { gap:10px; padding:12px 0; }
   .utility-row strong { font-size:14px; }
   .utility-row p { font-size:10px; line-height:1.7; }
@@ -330,6 +368,22 @@ button, a { -webkit-tap-highlight-color:transparent; }
   .emergency-card { min-height:82px; border-radius:12px; padding:11px; }
   footer { padding-bottom:6px; }
 }
+
+/* Final Thai art-direction overrides. */
+:root { --ink:#172b35; --paper:#fff9ed; --line:#dbc5a2; --red:#b83b2f; --blue:#164b5a; --orange:#d68435; --green:#28745d; --gold:#d6a84c; --teal:#1b6870; }
+body { background:#173b45; color:var(--ink); }
+.paper-texture { opacity:.18; background-image:linear-gradient(135deg,#d6a84c22 25%,transparent 25%),linear-gradient(315deg,#b83b2f15 25%,transparent 25%); background-size:18px 18px; }
+.app-shell { background:var(--paper); box-shadow:0 0 0 10px #d6a84c22,0 18px 70px #081d2566; }
+.main-nav { border-bottom:2px solid var(--gold); background:var(--paper); }
+.masthead { border-bottom:1px solid #d4b985; }.masthead h1 { color:var(--blue); text-shadow:3px 3px 0 #d6a84c55; }.eyebrow-dot { background:var(--gold); box-shadow:0 0 0 4px #d6a84c2b; }.kicker,.stop-kind,.day-tab.active,.progress-item strong { color:var(--red); }
+.cover-story { border:2px solid var(--gold); box-shadow:10px 10px 0 var(--blue); }.cover-image { background:radial-gradient(circle at 75% 24%,#f3c66d 0 6%,transparent 7%),linear-gradient(145deg,#d88939 0%,#b83b2f 42%,#642c3b 43%,#164b5a 100%); }.cover-image:before { background:var(--green); opacity:.72; }.cover-caption { background:var(--blue); }.cover-caption strong { color:#fff3cf; }.cover-caption a { color:#f3c66d; border-color:#f3c66d; }
+.hero-card { background:linear-gradient(135deg,var(--blue),#17343f 70%); border-left:7px solid var(--red); }.hero-card h2 em,.route-map-copy h2 em,.story-index h2 em,.guide-desk h2 em { color:#f3c66d; }.weather-icon { color:#f3c66d; }
+.quick-panel,.stop-card,.route-lane,.flight-card,.emergency-card,.checklist-row { border-color:#d4b985; }.quick-panel { background:#fffdf6; }.route-card { border-bottom:5px solid #173b45; }.route-card-vermillion { background:#b83b2f; }.route-card-moss { background:#28745d; }.route-card-indigo { background:#164b5a; }.route-card-sand { background:#d68435; }
+.route-map { background:#f4e2bb; border:2px solid #d4b985; }.route-map:after { content:'ไทย'; color:#b83b2f1c; }.route-line:before { border-top:2px solid #b08e59; }.route-stop:before { background:#fff9ed; border:3px solid var(--red); }.route-stop strong { color:var(--blue); }
+.guide-kyoto { background:#e3f0e3; }.guide-osaka { background:#f4ded0; }.day-tabs { border-bottom:2px solid #d4b985; }.day-tab.active:after { background:var(--red); height:3px; }.route-lane-head { background:#f4e2bb; }.stop-card { background:#fffdf7; box-shadow:4px 4px 0 #d6a84c22; }.stop-card:hover { border-color:var(--red); box-shadow:6px 6px 0 #b83b2f22; }.stop-icon { border:2px solid var(--red); color:var(--red); background:#fff9ed; }
+.budget-card { border:1px solid #d4b985; background:#f4e8cd; }.budget-card.blue { background:#dcecf0; }.budget-card.orange { background:#f7dfc7; }.budget-card.green { background:#e0efdf; }.flight-card { border:2px solid #d4b985; background:#fffdf7; }.flight-card-head { background:var(--blue); color:#fff9ed; }.flight-card-head h3,.flight-card-head p { color:#fff9ed; }.flight-status { border-color:#f3c66d; color:#f3c66d; }
+.utility-section,.budget-section,footer { border-top:2px solid #d4b985; }.emergency-card strong { color:var(--red); }
+@media (max-width:720px) { .main-nav:before { content:'暹羅留白'; color:var(--blue); }.nav-link.active { background:#f4e2bb; color:var(--red); }.app-shell { box-shadow:none; } }
 
 /* Airbnb-inspired mobile pass: a calm, card-first interface for quick field use. */
 :root {
@@ -342,7 +396,7 @@ button, a { -webkit-tap-highlight-color:transparent; }
 
 body { font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif; color: var(--airbnb-ink); }
 .masthead h1, .hero-card h2, .day-header h2, .stop-card h3, .route-lane-head h3,
-.personal-expenses h3, .utility-row strong { font-family: 'Noto Sans TC', sans-serif; font-weight: 700; letter-spacing: -.06em; }
+.utility-row strong { font-family: 'Noto Sans TC', sans-serif; font-weight: 700; letter-spacing: -.06em; }
 .section-label, .eyebrow, .stop-kind { font-family: 'DM Mono', monospace; }
 
 .main-nav { border-bottom: 0; }
@@ -362,7 +416,7 @@ body { font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-seri
   .paper-texture { display: none; }
   .app-shell { background: #fff; padding: 0 16px 28px; }
   .main-nav { position: sticky; top: 0; z-index: 30; height: 58px; margin: 0 -16px; padding: 9px 16px 8px; display: block; background: rgba(255,255,255,.96); border-bottom: 1px solid #eeeeee; backdrop-filter: blur(16px); }
-  .main-nav:before { content: 'Kansai 旅程'; position: absolute; left: 16px; top: 10px; color: var(--airbnb-ink); font-size: 13px; font-weight: 700; }
+  .main-nav:before { content: '暹羅留白'; position: absolute; left: 16px; top: 10px; color: var(--airbnb-ink); font-size: 13px; font-weight: 700; }
   .menu-button { display: none; }
   .nav-links { display: flex; position: absolute; inset: auto 16px 7px auto; width: calc(100% - 126px); height: 36px; gap: 4px; overflow-x: auto; justify-content: flex-end; }
   .nav-link { flex: 0 0 auto; min-height: 34px; padding: 7px 10px; border: 1px solid transparent; border-radius: 999px; color: #717171; font-size: 11px; white-space: nowrap; }
@@ -399,7 +453,7 @@ body { font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-seri
   .day-header h2 { font-size: 21px; }
   .day-header p { color: #717171; font-size: 10px; line-height: 1.55; }
   .today-button { width: auto; min-height: 34px; padding: 6px 12px; border: 1px solid #dddddd; border-radius: 999px; color: var(--airbnb-ink); font-size: 10px; }
-  .route-lane, .day5-lunch-column { border: 0; border-radius: 16px; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.09); overflow: hidden; }
+  .route-lane { border: 0; border-radius: 16px; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.09); overflow: hidden; }
   .route-lane-head { padding: 13px 14px 10px; border-bottom: 1px solid #eeeeee; }
   .route-lane-head h3 { font-size: 16px; }
   .route-lane-count { color: #717171; font-size: 10px; }
@@ -429,8 +483,6 @@ body { font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-seri
   .route-notes-card { border: 0; border-radius: 13px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
   .budget-section, .utility-section { margin-top: 25px; padding-top: 17px; border-top: 1px solid #eeeeee; }
   .budget-card { border: 1px solid #eeeeee; border-radius: 12px; box-shadow: none; }
-  .personal-expenses { border: 1px solid #eeeeee; border-top: 0; border-radius: 15px; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
-  .personal-expenses h3 { font-size: 18px; }
   .emergency-card, .checklist-row { border-radius: 12px; border-color: #eeeeee; background: #fff; }
   footer { border-color: #eeeeee; }
 }
@@ -446,7 +498,7 @@ body { font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-seri
   .weather-note { color:var(--ink); border-top-color:var(--line); }
   .weather-note span:last-child { color:var(--muted); }
   .quick-panel { background:#fff; box-shadow:0 3px 12px #1e29270a; }
-  .route-lane, .day5-lunch-column, .flight-card, .personal-expenses { box-shadow:0 3px 12px #1e29270a; }
+  .route-lane, .flight-card { box-shadow:0 3px 12px #1e29270a; }
   .stop-card { background:#fff; }
   .stop-card:hover { transform:none; }
   .day-header { margin-top:16px; }
@@ -455,17 +507,6 @@ body { font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-seri
   .budget-grid { margin-top:8px; gap:5px; }
   .budget-card { min-height:54px; padding:7px 9px; gap:7px; }
   .budget-icon { font-size:18px; }
-  .personal-expenses { margin-top:14px; padding:10px 8px; border-radius:12px; }
-  .personal-expenses h3 { margin:4px 0 2px; font-size:18px; }
-  .expense-note { margin-bottom:8px; font-size:9px; line-height:1.55; }
-  .shared-ticket-split { margin:8px 0 9px; }
-  .shared-ticket-row { min-height:0; padding:7px 8px; gap:1px; font-size:9px; }
-  .shared-ticket-row b, .shared-ticket-row em { font-size:9px; }
-  .expense-table tr { gap:0 7px; padding:7px 8px; }
-  .expense-table tbody th { padding-bottom:4px; font-size:14px; }
-  .expense-table td { padding:2px 0; font-size:9px; }
-  .expense-table td:before { font-size:8px; }
-  .expense-table td:nth-child(10) { margin-top:2px; padding-top:4px; font-size:11px; }
 }
 
 /* Compact mobile navigation: hamburger menu, matching the original pocket layout. */
@@ -488,72 +529,10 @@ body { font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-seri
 .stop-flight-info a { justify-self:start; margin-top:3px; color:var(--blue); font-size:9px; text-decoration:none; border-bottom:1px dotted var(--blue); }
 .stop-flight-info a:hover { color:var(--red); border-color:var(--red); }
 @media (max-width:520px) { .stop-flight-info { padding:9px 9px 8px; font-size:9px; }.stop-flight-info strong { font-size:13px; } }
-/* Expense summary refinements: keep payer subtotals visually distinct and readable on mobile. */
-.personal-expenses {
-  padding: clamp(20px, 3vw, 34px);
-  background: linear-gradient(135deg, rgba(243, 245, 240, .72), rgba(251, 249, 244, .96));
-  border: 1px solid var(--line);
-  border-top: 3px solid var(--red);
-  border-radius: 3px;
-}
-.personal-expenses h3 { margin-top: 8px; }
-.expense-note { max-width: 1180px; line-height: 1.8; }
-.shared-ticket-split { border-radius: 3px; overflow: hidden; }
-.shared-ticket-row { min-height: 42px; }
-.expense-table-wrap { border-radius: 3px; box-shadow: 0 8px 20px rgba(30, 41, 39, .05); }
-.expense-table { width: 100%; min-width: 0; table-layout: fixed; font-size: 9px; }
-.expense-table th, .expense-table td { padding: 6px 5px; white-space: normal; }
-.expense-table td { white-space: nowrap; }
-.expense-table th:first-child, .expense-table td:first-child { width: 46px; padding-left: 9px; padding-right: 7px; }
-.expense-table th:last-child, .expense-table td:last-child { padding-left: 7px; padding-right: 9px; }
-.expense-table thead th { position: sticky; top: 0; z-index: 1; letter-spacing: .04em; }
-.expense-table tbody tr:nth-child(even) { background: rgba(243, 245, 240, .42); }
-.expense-table tbody tr:hover { background: rgba(211, 225, 221, .42); }
-.expense-table td:nth-child(5), .expense-table th:nth-child(5),
-.expense-table td:nth-child(9), .expense-table th:nth-child(9) { background: rgba(221, 233, 228, .34); }
-.expense-table td:nth-child(9) { font-weight: 600; color: var(--red); }
-.expense-table td:last-child, .expense-table th:last-child { background: rgba(197, 75, 51, .08); }
-@media (max-width: 720px) {
-  .personal-expenses { padding: 16px 12px; }
-  .expense-note { font-size: 11px; }
-  .shared-ticket-row { grid-template-columns: 1fr; gap: 3px; }
-  .shared-ticket-row em { justify-self: start; }
-  .expense-table-wrap { width: 100%; margin-inline: -4px; overflow-x: scroll; -webkit-overflow-scrolling: touch; }
-  .expense-table thead th { position: static; }
-  .expense-table { width: 980px !important; min-width: 980px !important; table-layout: auto; font-size: 10px; }
-  .expense-table th, .expense-table td { padding: 8px 9px; white-space: nowrap; }
-  .expense-table th:first-child, .expense-table td:first-child { width: 46px; }
-  .expense-table th { white-space: normal; }
-}
-
-/* Final mobile expense pass: compact cards, no horizontal scrolling. */
-@media (max-width:720px) {
-  .budget-section { margin-top:18px; padding-top:12px; }
-  .budget-grid { margin-top:8px; gap:5px; }
-  .budget-card { min-height:54px; padding:7px 9px; gap:7px; }
-  .budget-icon { font-size:18px; }
-  .personal-expenses { margin-top:14px; padding:10px 8px; border-radius:12px; }
-  .personal-expenses h3 { margin:4px 0 2px; font-size:18px; }
-  .expense-note { margin:0 0 8px; font-size:9px; line-height:1.55; }
-  .shared-ticket-split { margin:8px 0 9px; }
-  .shared-ticket-row { min-height:0; padding:7px 8px; gap:1px; font-size:9px; }
-  .shared-ticket-row b, .shared-ticket-row em { font-size:9px; }
-  .expense-table-wrap { width:100%; margin-inline:0; overflow:visible; box-shadow:none; }
-  .expense-table { width:100% !important; min-width:0 !important; display:block; table-layout:auto; font-size:10px; }
-  .expense-table thead { display:none; }
-  .expense-table tbody, .expense-table tr { display:block; }
-  .expense-table tr { display:grid; grid-template-columns:1fr 1fr; gap:0 7px; padding:7px 8px; }
-  .expense-table tbody th { display:block; grid-column:1 / -1; padding:0 0 4px; font:600 14px 'Noto Serif TC',serif; }
-  .expense-table td { display:flex; justify-content:space-between; gap:6px; padding:2px 0; border:0; white-space:nowrap; font-size:9px; }
-  .expense-table td:before { font-size:8px; }
-  .expense-table td:nth-child(11) { grid-column:1 / -1; margin-top:2px; padding-top:4px; font-size:11px; }
-  .expense-table th:first-child, .expense-table td:first-child { width:auto; }
-}
-
 /* Final mobile navigation override: keep the original tabs visible for one-tap switching. */
 @media (max-width:720px) {
   .main-nav { position: sticky; top: 0; height: 58px; margin: 0 -16px; padding: 9px 16px 8px; display: block; background: rgba(255,255,255,.96); border-bottom: 1px solid #eeeeee; box-shadow: none; }
-  .main-nav:before { content: 'Kansai 旅程'; position: absolute; left: 16px; top: 10px; color: #222; font-size: 13px; font-weight: 700; }
+  .main-nav:before { content: '暹羅留白'; position: absolute; left: 16px; top: 10px; color: #222; font-size: 13px; font-weight: 700; }
   .menu-button { display: none; }
   .nav-links { display: flex; position: absolute; left: auto; right: 16px; top: 15px; width: calc(100% - 126px); height: 36px; padding: 0; flex-direction: row; align-items: center; gap: 4px; overflow-x: auto; border: 0; background: transparent; box-shadow: none; }
   .nav-links.open { display: flex; }
