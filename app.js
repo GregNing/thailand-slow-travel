@@ -1,4 +1,15 @@
-const state = { selectedDay: 0, completed: JSON.parse(localStorage.getItem('thailand-slow-travel-completed') || '{}') };
+const TRIP_DATA = window.TRIP_DATA;
+function readSavedChecks(key) {
+  try {
+    const value = JSON.parse(localStorage.getItem(key) || '{}');
+    return value && typeof value === 'object' && !Array.isArray(value) ? value : {};
+  } catch { return {}; }
+}
+function saveChecks(key, value) {
+  try { localStorage.setItem(key, JSON.stringify(value)); }
+  catch { $('offline-status').textContent = '此瀏覽器無法儲存勾選紀錄'; }
+}
+const state = { selectedDay: 0, completed: readSavedChecks('thailand-slow-travel-completed') };
 const $ = (id) => document.getElementById(id);
 const money = (value) => `฿${value.toLocaleString('en-US')}`;
 const flightMoney = (currency, value) => `${currency} ${value.toLocaleString('en-US')}`;
@@ -12,6 +23,14 @@ const mapsUrlFor = (stop) => {
   return savedMap || googleMapsUrl(query);
 };
 const iconFor = { arrival: '✈', stay: '⌂', food: '⌁', train: '↝', nature: '✦', culture: '◌', cafe: '☕', fun: '★', shopping: '✳' };
+const transportSummaries = {
+  'day-1': '長榮 BR067 → 預約私人接送／Grab；巴士為備案',
+  'day-2': '飯店早餐步行 → Grab／飯店車 → Walking Street 晚餐後步行；回程預約車',
+  'day-3': 'Klook 飯店接送 → Bali Hai Pier 快艇 → 回飯店 → Grab 前往 The Sky Gallery',
+  'day-4': '預約私人接送；省錢方案為 North Pattaya Bus Terminal → Ekkamai／Mo Chit 客運',
+  'day-5': 'BTS Asok／MRT Sukhumvit → Grab／船 → 步行串聯大皇宮與臥佛寺 → MRT／Grab',
+  'day-6': '步行／BTS／MRT → Airport Rail Link 或 Grab 前往 BKK T2'
+};
 const routeMeta = {
   main: { className: 'main', eyebrow: 'MAIN ROUTE', title: '主要行程' }
 };
@@ -29,16 +48,14 @@ function init() {
   $('trip-subtitle').textContent = TRIP_DATA.subtitle;
   $('trip-date-range').textContent = TRIP_DATA.dateRange;
   $('trip-location').textContent = TRIP_DATA.location;
-  $('trip-description').textContent = TRIP_DATA.description;
-  $('trip-note').textContent = TRIP_DATA.note;
   $('trip-days').textContent = String(TRIP_DATA.days.length).padStart(2, '0');
   $('total-stops').textContent = TRIP_DATA.days.reduce((sum, day) => sum + day.stops.length, 0);
   $('total-budget').textContent = money(TRIP_DATA.budget.reduce((sum, item) => sum + item.amount, 0));
-  renderTabs(); renderRouteCards(); renderBudget(); renderUtilitySections(); renderDay(); updateProgress();
+  renderTabs(); renderBudget(); renderTransport(); renderUtilitySections(); renderDay(); updateProgress();
+  document.querySelectorAll('.tab-panel').forEach((panel) => { panel.hidden = false; });
   $('today-button').addEventListener('click', jumpToToday);
   document.querySelectorAll('.nav-link').forEach((button) => button.addEventListener('click', () => {
     document.querySelectorAll('.nav-link').forEach((item) => item.classList.toggle('active', item === button));
-    document.querySelectorAll('.tab-panel').forEach((panel) => { panel.hidden = panel.dataset.panel !== button.dataset.panel; });
     document.getElementById(button.dataset.target).scrollIntoView({ behavior: 'smooth', block: 'start' });
     document.querySelector('.nav-links').classList.remove('open');
     $('menu-button').setAttribute('aria-expanded', 'false');
@@ -49,34 +66,23 @@ function init() {
   });
 }
 
-function renderRouteCards() {
-  const tones = ['route-card-vermillion', 'route-card-moss', 'route-card-indigo', 'route-card-sand'];
-  $('route-cards').innerHTML = TRIP_DATA.days.slice(0, 4).map((day, index) => {
-    const lead = day.stops[0];
-    return `<article class="route-card ${tones[index % tones.length]}">
-      <button class="route-card-day" type="button" data-route-day="${index}" aria-label="查看 ${day.label} 行程">
-        <span class="route-card-number">${String(index + 1).padStart(2, '0')}</span>
-        <span class="route-card-mark">${iconFor[lead.type] || '•'}</span>
-        <span class="route-card-copy"><small>${day.short} / ${day.weekday} · ${lead.place.split('／')[0]}</small><strong>${day.label}</strong><em>${day.summary}</em></span>
-        <span class="route-card-arrow">↗</span>
-      </button>
-      <a class="route-card-map" href="${mapsUrlFor(lead)}" ${mapLinkAttrs()} aria-label="在 Google Maps 開啟 ${lead.title}">⌖ Google Maps 位置 ↗</a>
-    </article>`;
-  }).join('');
-  document.querySelectorAll('[data-route-day]').forEach((button) => button.addEventListener('click', () => {
-    state.selectedDay = Number(button.dataset.routeDay); renderTabs(); renderDay(); $('itinerary-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }));
-}
-
 function renderTabs() {
-  $('day-tabs').innerHTML = TRIP_DATA.days.map((day, index) => `<button class="day-tab ${index === state.selectedDay ? 'active' : ''}" data-day="${index}" type="button"><span>DAY ${index + 1}</span><strong>${day.short}</strong><small>${day.weekday}</small></button>`).join('');
+  $('day-tabs').innerHTML = TRIP_DATA.days.map((day, index) => `<button class="day-tab ${index === state.selectedDay ? 'active' : ''}" data-day="${index}" aria-pressed="${index === state.selectedDay}" aria-label="2月${day.short}日：${day.label}" type="button"><span>DAY ${index + 1}</span><strong>${day.short}</strong><small>${day.weekday}</small></button>`).join('');
   document.querySelectorAll('.day-tab').forEach((button) => button.addEventListener('click', () => { state.selectedDay = Number(button.dataset.day); renderTabs(); renderDay(); }));
 }
 
 function renderDay() {
   const day = TRIP_DATA.days[state.selectedDay];
+  const cityTheme = state.selectedDay < 3 ? 'pattaya' : 'bangkok';
+  $('timeline').style.setProperty('--section-photo', `url("${day.photo.src}")`);
+  $('timeline').style.setProperty('--photo-position', day.photo.position || 'center');
+  document.querySelectorAll('.day-header, #timeline, #transport-section').forEach((element) => {
+    element.classList.remove('day-theme-pattaya', 'day-theme-bangkok');
+    element.classList.add(`day-theme-${cityTheme}`);
+  });
   $('selected-day-title').innerHTML = `${day.label} <span>DAY ${state.selectedDay + 1}</span>`;
   $('selected-day-summary').textContent = day.summary;
+  $('selected-day-transport').textContent = transportSummaries[day.id] || '步行／Grab／預約車，依當日行程卡標示為準';
   const routes = day.stops.reduce((groups, stop, originalIndex) => {
     const route = 'main';
     let group = groups.find((item) => item.route === route);
@@ -88,8 +94,11 @@ function renderDay() {
   const routeNotes = (day.routeNotes || []).map(renderRouteNote).join('');
   const routeBoard = `<div class="timeline-board">${routes.map((group) => renderRouteLane(day, group)).join('')}</div>`;
   const flights = (day.flights || []).map(renderFlightDetails).join('');
-  $('timeline').innerHTML = `${flights}${routeBoard}${routeNotes ? `<div class="route-notes">${routeNotes}</div>` : ''}`;
-  document.querySelectorAll('.check-wrap input').forEach((input) => input.addEventListener('change', (event) => { state.completed[event.target.dataset.key] = event.target.checked; localStorage.setItem('thailand-slow-travel-completed', JSON.stringify(state.completed)); event.target.closest('.stop').classList.toggle('completed', event.target.checked); updateProgress(); }));
+  const dayPhoto = `<figure class="day-photo"><img src="${day.photo.src}" alt="${day.photo.alt}" style="object-position:${day.photo.position || 'center'}" width="1600" height="900" decoding="async"><figcaption>${day.photo.alt} · <a href="photo-credits.html#${day.id}" target="_blank" rel="noopener">照片來源 ↗</a></figcaption></figure>`;
+  $('timeline').innerHTML = `${dayPhoto}${flights}${routeBoard}${routeNotes ? `<div class="route-notes">${routeNotes}</div>` : ''}`;
+  const photo = $('timeline').querySelector('.day-photo img');
+  photo.addEventListener('error', () => { photo.closest('figure').classList.add('photo-unavailable'); });
+  document.querySelectorAll('.check-wrap input').forEach((input) => input.addEventListener('change', (event) => { state.completed[event.target.dataset.key] = event.target.checked; saveChecks('thailand-slow-travel-completed', state.completed); event.target.closest('.stop').classList.toggle('completed', event.target.checked); updateProgress(); }));
 }
 
 function renderFlightDetails(flight) {
@@ -164,17 +173,25 @@ function renderBudget() {
   $('budget-grid').innerHTML = TRIP_DATA.budget.map((item) => `<div class="budget-card ${item.tone}"><div class="budget-icon">${item.icon}</div><div><span>${item.label}</span><strong>${money(item.amount)}</strong></div></div>`).join('');
 }
 
+function renderTransport() {
+  const items = TRIP_DATA.transportGuide || [];
+  $('transport-grid').innerHTML = items.map((item) => {
+    const links = (item.links || []).map((link) => `<a href="${link.url}" target="_blank" rel="noopener">${link.label} ↗</a>`).join('');
+    return `<article class="transport-card"><span class="transport-label">${item.label}</span><h3>${item.title}</h3><div class="transport-detail"><span>方式</span><strong>${item.method}</strong></div><div class="transport-detail"><span>時間</span><strong>${item.duration}</strong></div><div class="transport-detail"><span>費用</span><strong>${item.cost}</strong></div><p>${item.note}</p>${links ? `<div class="transport-links">${links}</div>` : ''}</article>`;
+  }).join('');
+}
+
 function renderUtilitySections() {
   $('reminders-list').innerHTML = TRIP_DATA.reminders.map((item, index) => { const links = (item.links || []).map((link) => `<a class="reminder-link" href="${link.url}" target="_blank" rel="noopener">${link.label} ↗</a>`).join(''); return `<div class="utility-row"><span class="utility-index">${String(index + 1).padStart(2, '0')}</span><div><strong>${item.title}</strong><p>${item.text}</p>${links ? `<div class="reminder-links">${links}</div>` : ''}</div></div>`; }).join('');
-  const checks = JSON.parse(localStorage.getItem('thailand-slow-travel-checks') || '{}');
+  const checks = readSavedChecks('thailand-slow-travel-checks');
   $('checklist').innerHTML = TRIP_DATA.checklist.map((item) => `<label class="checklist-row"><input type="checkbox" data-check="${item.id}" ${checks[item.id] ? 'checked' : ''}><span class="check-box"></span><span>${item.text}</span></label>`).join('');
-  document.querySelectorAll('[data-check]').forEach((input) => input.addEventListener('change', (event) => { checks[event.target.dataset.check] = event.target.checked; localStorage.setItem('thailand-slow-travel-checks', JSON.stringify(checks)); }));
+  document.querySelectorAll('[data-check]').forEach((input) => input.addEventListener('change', (event) => { checks[event.target.dataset.check] = event.target.checked; saveChecks('thailand-slow-travel-checks', checks); }));
   $('emergency-grid').innerHTML = TRIP_DATA.emergency.map((item) => `<a class="emergency-card" href="${item.action}" target="_blank" rel="noopener"><span>${item.label}</span><strong>${item.value}</strong><small>開啟 ↗</small></a>`).join('');
 }
 
 function updateProgress() {
   const total = TRIP_DATA.days.reduce((sum, day) => sum + day.stops.length, 0);
-  const done = Object.values(state.completed).filter(Boolean).length;
+  const done = TRIP_DATA.days.reduce((sum, day) => sum + day.stops.filter((stop, index) => state.completed[`${day.id}-main-${index}`] === true).length, 0);
   const percent = total ? Math.round((done / total) * 100) : 0;
   $('progress-text').textContent = `${percent}%`;
   $('progress-bar').style.width = `${percent}%`;
@@ -188,5 +205,12 @@ function jumpToToday() {
   renderTabs(); renderDay();
 }
 
-if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
+if ('serviceWorker' in navigator) window.addEventListener('load', async () => {
+  if (['localhost', '127.0.0.1'].includes(location.hostname)) {
+    const registration = await navigator.serviceWorker.getRegistration('./');
+    if (registration) await registration.unregister();
+    return;
+  }
+  navigator.serviceWorker.register('sw.js');
+});
 init();

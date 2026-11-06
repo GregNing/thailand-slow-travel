@@ -1,0 +1,128 @@
+{
+  "cover": {
+    "src": "assets/photos/cover.jpg",
+    "title": "Pattaya Thailand skyline photo Don Ramey Logan.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Pattaya_Thailand_skyline_photo_Don_Ramey_Logan.jpg/1920px-Pattaya_Thailand_skyline_photo_Don_Ramey_Logan.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "source": "https://commons.wikimedia.org/wiki/File:Pattaya_Thailand_skyline_photo_Don_Ramey_Logan.jpg",
+    "author": "Don Ramey Logan",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "summary": {
+    "src": "assets/photos/summary.jpg",
+    "title": "Jomtien beach at sunset.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/Jomtien_beach_at_sunset.jpg/1920px-Jomtien_beach_at_sunset.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "source": "https://commons.wikimedia.org/wiki/File:Jomtien_beach_at_sunset.jpg",
+    "author": "Slyronit",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "day-1": {
+    "src": "assets/photos/day-1-tiffany.jpg",
+    "title": "Tiffany’s Show Pattaya – Our Show",
+    "source": "https://www.tiffany-show.co.th/",
+    "url": "https://www.tiffany-show.co.th/wp-content/uploads/2026/01/Our-Show.jpg",
+    "author": "Tiffany’s Show Pattaya",
+    "license": "官方網站圖片；權利歸原權利人所有",
+    "licenseUrl": ""
+  },
+  "day-2": {
+    "src": "assets/photos/day-2-elephants.jpg",
+    "title": "Pattaya Elephant Home",
+    "source": "https://www.visitthailandtoday.com/activities-tours/pattaya/pattaya-elephant-home",
+    "url": "https://gorktksmwzabnzbhfrcx.supabase.co/storage/v1/object/public/locations/locations/ChIJGT97qMyTAjERbRTKmgrjdBY/0.jpg",
+    "author": "Visit Thailand Today 景點頁收錄（攝影者未標示）",
+    "license": "未提供開放授權；權利歸原權利人所有",
+    "licenseUrl": ""
+  },
+  "day-3": {
+    "src": "assets/photos/day-3.jpg",
+    "title": "Tawaen Beach, Ko Lan 0001.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/Tawaen_Beach%2C_Ko_Lan_0001.jpg/1920px-Tawaen_Beach%2C_Ko_Lan_0001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "source": "https://commons.wikimedia.org/wiki/File:Tawaen_Beach,_Ko_Lan_0001.jpg",
+    "author": "Stefan Fussan",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "day-4": {
+    "src": "assets/photos/day-4.jpg",
+    "title": "Wat Arun or the Temple of Dawn Photo Don Ramey Logan.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/Wat_Arun_or_the_Temple_of_Dawn_Photo_Don_Ramey_Logan.jpg/1920px-Wat_Arun_or_the_Temple_of_Dawn_Photo_Don_Ramey_Logan.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "source": "https://commons.wikimedia.org/wiki/File:Wat_Arun_or_the_Temple_of_Dawn_Photo_Don_Ramey_Logan.jpg",
+    "author": "Don Ramey Logan",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "day-5": {
+    "src": "assets/photos/day-5.jpg",
+    "title": "The Four Chedi of Wat Pho (III).jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e9/The_Four_Chedi_of_Wat_Pho_%28III%29.jpg/1920px-The_Four_Chedi_of_Wat_Pho_%28III%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "source": "https://commons.wikimedia.org/wiki/File:The_Four_Chedi_of_Wat_Pho_(III).jpg",
+    "author": "Supanut Arunoprayote",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "day-6": {
+    "src": "assets/photos/day-6.jpg",
+    "title": "Suvarnabhumi Airport Terminal E interior at dusk.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/88/Suvarnabhumi_Airport_Terminal_E_interior_at_dusk.jpg/1920px-Suvarnabhumi_Airport_Terminal_E_interior_at_dusk.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "source": "https://commons.wikimedia.org/wiki/File:Suvarnabhumi_Airport_Terminal_E_interior_at_dusk.jpg",
+    "author": "Grendelkhan",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "transport-pattaya": {
+    "src": "assets/photos/transport-pattaya.jpg",
+    "title": "Samae Beach, Ko Lan 0002.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/Samae_Beach%2C_Ko_Lan_0002.jpg/1920px-Samae_Beach%2C_Ko_Lan_0002.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "source": "https://commons.wikimedia.org/wiki/File:Samae_Beach,_Ko_Lan_0002.jpg",
+    "author": "Stefan Fussan",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "transport-bangkok": {
+    "src": "assets/photos/transport-bangkok.jpg",
+    "title": "Bangkok Skytrain BTS 3.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Bangkok_Skytrain_BTS_3.jpg/1920px-Bangkok_Skytrain_BTS_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "source": "https://commons.wikimedia.org/wiki/File:Bangkok_Skytrain_BTS_3.jpg",
+    "author": "kallerna",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "budget": {
+    "src": "assets/photos/budget.jpg",
+    "title": "Bangkok Street Food.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Bangkok_Street_Food.jpg/1920px-Bangkok_Street_Food.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "source": "https://commons.wikimedia.org/wiki/File:Bangkok_Street_Food.jpg",
+    "author": "Radek Kucharski",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  "reminders": {
+    "src": "assets/photos/reminders.jpg",
+    "title": "Talat Noi Street Art.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d7/Talat_Noi_Street_Art.jpg/1920px-Talat_Noi_Street_Art.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "source": "https://commons.wikimedia.org/wiki/File:Talat_Noi_Street_Art.jpg",
+    "author": "Phoebus 28",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "checks": {
+    "src": "assets/photos/checks.jpg",
+    "title": "Benjakitti Forest Park (I).jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/Benjakitti_Forest_Park_%28I%29.jpg/1920px-Benjakitti_Forest_Park_%28I%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "source": "https://commons.wikimedia.org/wiki/File:Benjakitti_Forest_Park_(I).jpg",
+    "author": "Supanut Arunoprayote",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "emergency": {
+    "src": "assets/photos/emergency.jpg",
+    "title": "Templo Wat Arun, Bangkok, Tailandia, 2013-08-22, DD 30.jpg",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Templo_Wat_Arun%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_30.jpg/1920px-Templo_Wat_Arun%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_30.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "source": "https://commons.wikimedia.org/wiki/File:Templo_Wat_Arun,_Bangkok,_Tailandia,_2013-08-22,_DD_30.jpg",
+    "author": "Diego Delso",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0"
+  }
+}

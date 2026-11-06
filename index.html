@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#f4efe6" />
+    <meta name="theme-color" content="#263544" />
     <meta name="description" content="一份離線也能使用的手機旅程手冊" />
     <link rel="manifest" href="manifest.webmanifest" />
-    <link rel="stylesheet" href="styles.css?v=81" />
+    <link rel="stylesheet" href="styles.css?v=98" />
     <title>漫遊手冊 · 暹羅留白</title>
   </head>
   <body>
@@ -16,6 +16,7 @@
         <div class="nav-links">
           <button class="nav-link" data-panel="emergency" data-target="emergency-section" type="button">緊急</button>
           <button class="nav-link active" data-panel="itinerary" data-target="itinerary-section" type="button">行程</button>
+          <button class="nav-link" data-panel="transport" data-target="transport-section" type="button">交通</button>
           <button class="nav-link" data-panel="budget" data-target="budget-section" type="button">花費</button>
           <button class="nav-link" data-panel="reminders" data-target="reminders-section" type="button">提醒</button>
           <button class="nav-link" data-panel="checks" data-target="checks-section" type="button">檢查</button>
@@ -27,18 +28,13 @@
         <div class="masthead-row">
           <div>
             <p class="kicker">漫遊手冊</p>
-            <h1 id="trip-title">山海之間</h1>
+            <h1 id="trip-title">暹羅留白</h1>
             <p id="trip-subtitle" class="subtitle"></p>
           </div>
-          <div class="stamp" aria-label="行程天數"><strong id="trip-days">05</strong><span>DAYS<br />AWAY</span></div>
+          <div class="stamp" aria-label="行程天數"><strong id="trip-days">06</strong><span>DAYS<br />AWAY</span></div>
         </div>
         <div class="date-ribbon"><span id="trip-date-range"></span><span class="ribbon-line"></span><span id="trip-location"></span></div>
       </header>
-
-      <section class="hero-card tab-panel" data-panel="itinerary" aria-labelledby="overview-heading">
-        <div class="hero-copy"><span class="section-label">OVERVIEW / 旅程總覽</span><h2 id="overview-heading">把每一站，<em>留在路上。</em></h2><p id="trip-description"></p></div>
-        <div class="weather-note"><span class="weather-icon">☼</span><div><b>出發前筆記</b><span id="trip-note"></span></div></div>
-      </section>
 
       <section class="quick-panel tab-panel" data-panel="itinerary" aria-label="旅程摘要">
         <div class="quick-item"><span>總站點</span><strong id="total-stops">—</strong></div>
@@ -46,32 +42,19 @@
         <div class="quick-item progress-item"><span>完成進度</span><strong id="progress-text">0%</strong><div class="progress-track"><div id="progress-bar"></div></div></div>
       </section>
 
-      <section class="story-index tab-panel" data-panel="itinerary" aria-labelledby="story-index-heading">
-        <div class="story-index-heading"><span class="section-label">THE ROUTE / 路線選集</span><h2 id="story-index-heading">這趟旅程，<em>從哪裡開始？</em></h2></div>
-        <div class="route-cards" id="route-cards"></div>
-      </section>
-
-      <section class="route-map tab-panel" data-panel="itinerary" aria-labelledby="route-map-heading">
-        <div class="route-map-copy"><span class="section-label">A LINE THROUGH THAILAND / 泰國路線</span><h2 id="route-map-heading">不趕路，<br /><em>讓熱帶城市自己出現。</em></h2><p>從曼谷機場一路往海邊，在芭達雅住三晚，再回到曼谷的河岸與老城收尾。</p></div>
-        <div class="route-line" aria-label="泰國旅行路線"><a class="route-stop route-stop-airport" href="https://www.google.com/maps/search/?api=1&query=Suvarnabhumi%20Airport" target="_blank" rel="noopener" aria-label="在 Google Maps 開啟曼谷機場"><b>01</b><strong>曼谷機場</strong><small>ARRIVE · MAP ↗</small></a><a class="route-stop route-stop-kyoto" href="https://www.google.com/maps/search/?api=1&query=Ana%20Anan%20Resort%20%26%20Villas%20Pattaya" target="_blank" rel="noopener" aria-label="在 Google Maps 開啟芭達雅住宿"><b>02</b><strong>芭達雅</strong><small>STAY / 3 NIGHTS · MAP ↗</small></a><a class="route-stop route-stop-osaka" href="https://www.google.com/maps/search/?api=1&query=Wat%20Arun%20Bangkok" target="_blank" rel="noopener" aria-label="在 Google Maps 開啟曼谷鄭王廟"><b>03</b><strong>曼谷</strong><small>STAY / 2 NIGHTS · MAP ↗</small></a></div>
-      </section>
-
-      <section class="guide-desk tab-panel" data-panel="itinerary" aria-labelledby="guide-desk-heading">
-        <div class="guide-desk-head"><span class="section-label">OFFICIAL FIELD GUIDE / 官方資料</span><h2 id="guide-desk-heading">出發前，<em>打開這三本指南。</em></h2></div>
-        <div class="guide-grid">
-          <a class="guide-card guide-kyoto" href="https://www.tourismthailand.org/" target="_blank" rel="noopener"><span class="guide-card-label">THAILAND / 泰國</span><strong>先看官方旅遊靈感</strong><p>泰國觀光局可依城市、文化、美食與戶外活動找靈感，適合補上芭達雅與曼谷的彈性行程。</p><span class="guide-link">開啟 Tourism Thailand ↗</span></a>
-          <a class="guide-card guide-osaka" href="https://www.tmd.go.th/en" target="_blank" rel="noopener"><span class="guide-card-label">WEATHER / 天氣</span><strong>每天看一眼天氣與警示</strong><p>泰國氣象局提供天氣、降雨、熱帶風暴與警示資訊；戶外行程與跨城市交通前再確認。</p><span class="guide-link">開啟 Thai Meteorological Department ↗</span></a>
-        </div>
-      </section>
-
       <section id="itinerary-section" class="anchor-section tab-panel" data-panel="itinerary"><nav class="day-tabs" id="day-tabs" aria-label="每日行程"></nav></section>
 
-      <section class="day-header tab-panel" data-panel="itinerary">
-        <div><span class="section-label">SELECTED DAY / 今日行程</span><h2 id="selected-day-title"></h2><p id="selected-day-summary"></p></div>
+      <section id="day-header" class="day-header tab-panel" data-panel="itinerary">
+        <div><span class="section-label">SELECTED DAY / 今日行程</span><h2 id="selected-day-title"></h2><p id="selected-day-summary"></p><div class="day-transport"><span>交通方式</span><strong id="selected-day-transport"></strong></div></div>
         <button class="today-button" id="today-button" type="button">⌖ 跳到今天</button>
       </section>
 
       <section class="timeline tab-panel" data-panel="itinerary" id="timeline" aria-live="polite"></section>
+
+      <section class="transport-section tab-panel" data-panel="transport" id="transport-section" aria-labelledby="transport-heading">
+        <div class="section-heading"><span class="section-label">TRANSPORT / 交通</span><h2 id="transport-heading">每天怎麼走</h2><p>把跨城市、接送、快艇與市區移動集中在這裡。</p></div>
+        <div class="transport-grid" id="transport-grid"></div>
+      </section>
 
       <section class="budget-section tab-panel" data-panel="budget" id="budget-section">
         <div class="section-label">FIELD NOTES / 預算筆記</div>
@@ -93,9 +76,9 @@
         <div class="emergency-grid" id="emergency-grid"></div>
       </section>
 
-      <footer><span>漫遊手冊 / Travel lightly, remember deeply.</span><span id="offline-status">● 可離線瀏覽</span></footer>
+      <footer><a href="photo-credits.html">照片來源</a><span>漫遊手冊 / Travel lightly, remember deeply.</span><span id="offline-status">● 可離線瀏覽</span></footer>
     </main>
-    <script src="data.js?v=81"></script>
-    <script src="app.js?v=81"></script>
+    <script src="data.js?v=98"></script>
+    <script src="app.js?v=98"></script>
   </body>
 </html>
